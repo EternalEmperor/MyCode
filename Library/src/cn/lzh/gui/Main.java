@@ -22,6 +22,8 @@ public class Main extends JFrame {
 	private BorrowBookPanel borrowBookPanel;
 	private BlankPanel blankPanel;
 	private AuthorityPanel authorityPanel;
+	private ChangePwdPanel changePwdPanel;
+	private Bk bk;
 	
 	public final static String ReaderPanelName  = "Reader";
 	public final static String ReaderTypePanelName = "ReaderType";
@@ -30,27 +32,39 @@ public class Main extends JFrame {
 	public final static String BorrowBookName = "BorrowBook";
 	public final static String BlankPanelName = "Blank";
 	public final static String AuthorityPanelName = "Ahthority";
+	public final static String ChangePwdPanelName = "ChangePwd";
+	public final static String BkName = "Bk";
 	
 	public static JPanel cards;
-	private JMenu MN_ReaderMgt;
-	private JMenuItem MI_ReaderMgt;
-	private JMenuItem MI_ReaderTypeMgt;
-	private JMenu MN_BookMgt;
+	private static JMenu MN_ReaderMgt;
+	private static JMenuItem MI_ReaderMgt;
+	private static JMenuItem MI_ReaderTypeMgt;
+	private static JMenu MN_BookMgt;
 	private JMenuItem MI_NewBook;
 	private JMenuItem MI_BookSearch;
-	private JMenu MN_BorrorMgt;
+	private static JMenu MN_BorrorMgt;
 	private JMenuItem MI_Borror;
-	private JMenu MN_UserMgt;
+	private static JMenu MN_UserMgt;
 	private JMenuItem MI_PermissionMgt;
 	private JMenuItem MI_UpdatePassword;
 	private JMenuBar menuBar;
 	
 	
+	
 	public Main() {
 		setSize(new Dimension(1215, 800));
 		initComponents();
-		initMenu();
+//		initMenu();
 		initCardPanels();
+		MN_ReaderMgt.setEnabled(false);
+		MN_BookMgt.setEnabled(false);
+		MN_BorrorMgt.setEnabled(false);
+		MN_UserMgt.setEnabled(false);
+		MN_UserMgt.getMenuComponent(0).setEnabled(false);
+		MN_UserMgt.getMenuComponent(1).setEnabled(false);
+		CardLayout cl = (CardLayout)cards.getLayout();
+		cl.show(cards, BlankPanelName);
+		
 	}
 	
 	/**
@@ -128,9 +142,16 @@ public class Main extends JFrame {
 		
 		MI_UpdatePassword = new JMenuItem("修改密码");
 		MI_UpdatePassword.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)cards.getLayout();
-				cl.show(cards, AuthorityPanelName);
+				cl.show(cards, ChangePwdPanelName);
+//				ChangePwdPanel cp = new ChangePwdPanel();
+//				cp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//				cp.setVisible(true);
+//				cp.setLocationRelativeTo(null);
+//				cp.show();
+				
 			}
 		});
 		MN_UserMgt.add(MI_UpdatePassword);
@@ -138,13 +159,13 @@ public class Main extends JFrame {
 	/**
 	 * 菜单项管理
 	 */
-	private void initMenu(){
-		MN_ReaderMgt.setEnabled(Login.reader.isReaderAdmin());
-		MN_BookMgt.setEnabled(Login.reader.isBookAdmin());
-		MN_BorrorMgt.setEnabled(Login.reader.isBorrowAdmin());
-		//MN_UserMgt.setEnabled(Login.reader.isSysAdmin());
-		MN_UserMgt.getMenuComponent(0).setEnabled(Login.reader.isSysAdmin());
-		MN_UserMgt.getMenuComponent(1).setEnabled(Login.reader.isBorrowAdmin());
+	public static void initMenu(){
+		MN_ReaderMgt.setEnabled(BlankPanel.reader.isReaderAdmin());
+		MN_BookMgt.setEnabled(BlankPanel.reader.isBookAdmin());
+		MN_BorrorMgt.setEnabled(BlankPanel.reader.isBorrowAdmin());
+		MN_UserMgt.setEnabled(true);
+		MN_UserMgt.getMenuComponent(0).setEnabled(BlankPanel.reader.isSysAdmin());
+		MN_UserMgt.getMenuComponent(1).setEnabled(BlankPanel.reader.isBorrowAdmin());
 	}
 	
 	/*
@@ -173,6 +194,13 @@ public class Main extends JFrame {
 		authorityPanel = new AuthorityPanel();
 		authorityPanel.setVisible(false);
 		
+		changePwdPanel = new ChangePwdPanel();
+		changePwdPanel.setVisible(false);
+		
+		bk = new Bk();
+		bk.setVisible(false);
+
+		
 		cards = new JPanel(new CardLayout());
 		cards.add(blankPanel,BlankPanelName);
 		cards.add(readerPanel,ReaderPanelName);
@@ -181,9 +209,18 @@ public class Main extends JFrame {
 		cards.add(bookSearchPanel,BookSearchName);
 		cards.add(borrowBookPanel,BorrowBookName);
 		cards.add(authorityPanel,AuthorityPanelName);
-		
+		cards.add(changePwdPanel,ChangePwdPanelName);
+		cards.add(bk,BkName);		
 		getContentPane().add(cards);
 	}
+	
+	public static void main(String[] args) {
+		Main mainGUI = new Main();
+		mainGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainGUI.setLocationRelativeTo(null);
+		mainGUI.setVisible(true);
+	}
+	
 	
 	
 	

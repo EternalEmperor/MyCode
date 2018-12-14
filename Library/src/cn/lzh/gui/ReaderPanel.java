@@ -210,7 +210,6 @@ public class ReaderPanel extends JPanel {
 				ReaderType rdType = (ReaderType) rdTypeComboBox.getSelectedItem();
 				DepartmentType deptType = (DepartmentType) deptTypeComboBox.getSelectedItem();
 				String userName = tfUserName.getText().trim();
-				System.out.println("a" + userName + "a");
 				Reader[] hits = readerBll.retrieveReaders(rdType, deptType, userName);
 				//更新查询结果列表
 				updateResultTable(hits);
@@ -268,6 +267,13 @@ public class ReaderPanel extends JPanel {
 				rd.setRdStatus("挂失");
 				readerBll.updateReader(rd);
 				JOptionPane.showMessageDialog(null, "挂失成功！");
+				ReaderType rdType = (ReaderType) rdTypeComboBox.getSelectedItem();
+				DepartmentType deptType = (DepartmentType) deptTypeComboBox.getSelectedItem();
+				String userName = tfUserName.getText().trim();
+				Reader[] hits = readerBll.retrieveReaders(rdType, deptType, userName);
+				//更新查询结果列表
+				updateResultTable(hits);
+				
 			}
 		});
 		
@@ -282,6 +288,12 @@ public class ReaderPanel extends JPanel {
 				rd.setRdStatus("有效");
 				readerBll.updateReader(rd);
 				JOptionPane.showMessageDialog(null, "解除成功！");
+				ReaderType rdType = (ReaderType) rdTypeComboBox.getSelectedItem();
+				DepartmentType deptType = (DepartmentType) deptTypeComboBox.getSelectedItem();
+				String userName = tfUserName.getText().trim();
+				Reader[] hits = readerBll.retrieveReaders(rdType, deptType, userName);
+				//更新查询结果列表
+				updateResultTable(hits);
 			}
 		});
 		
@@ -296,6 +308,12 @@ public class ReaderPanel extends JPanel {
 				rd.setRdStatus("注销");
 				readerBll.updateReader(rd);
 				JOptionPane.showMessageDialog(null, "注销成功！");
+				ReaderType rdType = (ReaderType) rdTypeComboBox.getSelectedItem();
+				DepartmentType deptType = (DepartmentType) deptTypeComboBox.getSelectedItem();
+				String userName = tfUserName.getText().trim();
+				Reader[] hits = readerBll.retrieveReaders(rdType, deptType, userName);
+				//更新查询结果列表
+				updateResultTable(hits);
 			}
 		});
 		
@@ -320,7 +338,7 @@ public class ReaderPanel extends JPanel {
 	 */
 	private Reader getReaderFromText(){
 		Reader reader = new Reader();
-		reader.setRdID(Integer.valueOf(tfReaderID.getText()));
+		reader.setRdID(Integer.valueOf(tfReaderID.getText().trim()));
 		reader.setRdName(tfReaderName.getText().trim());
 		reader.setRdPwd(String.valueOf(passwordField.getPassword()));
 		reader.setRdSex(cbGender.getSelectedItem().toString());
@@ -360,6 +378,7 @@ public class ReaderPanel extends JPanel {
 	private void setReaderToText(Reader reader) {
 		// TODO 自动生成的方法存根
 		tfReaderID.setText(String.valueOf(reader.getRdID()));
+		System.out.println(String.valueOf(reader.getRdID()));
 		tfReaderName.setText(reader.getRdName());
 		passwordField.setText(reader.getRdPwd());
 		tfNumBorrowed.setText(String.valueOf(reader.getRdBorrowQty()));

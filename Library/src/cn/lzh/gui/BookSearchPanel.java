@@ -39,7 +39,6 @@ public class BookSearchPanel extends JPanel {
 	private JPanel CtrlPanel;
 	public static JButton Update;
 	private JButton Delete;
-	private JButton ToExcel;
 	private JButton Retrun;
 	private NewBookPanel updateBookPanel;
 	private BookAdmin bookBll = new BookAdmin();
@@ -171,10 +170,6 @@ public class BookSearchPanel extends JPanel {
 		
 		Delete.setBounds(374, 33, 123, 29);
 		CtrlPanel.add(Delete);
-		
-		ToExcel = new JButton("导出Excel");
-		ToExcel.setBounds(584, 33, 123, 29);
-		CtrlPanel.add(ToExcel);
 		
 		Retrun = new JButton("返回");
 		Retrun.setBounds(796, 33, 123, 29);

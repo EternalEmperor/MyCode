@@ -3,6 +3,7 @@ package cn.lzh.bll;
 import java.sql.SQLException;
 
 import cn.lzh.dal.ReaderDAL;
+import cn.lzh.vo.AbstractModel;
 import cn.lzh.vo.DepartmentType;
 import cn.lzh.vo.Reader;
 import cn.lzh.vo.ReaderType;
@@ -77,6 +78,16 @@ public class ReaderAdmin extends LibraryBLL{
 			// TODO Auto-generated catch block
 		}
 		return 0;
+	}
+	
+	public Reader[] getAll(){
+		try {
+			return (Reader[])dal.getAllObjects();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
